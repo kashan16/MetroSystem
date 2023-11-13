@@ -6,9 +6,15 @@ the basis of the total distance between the two stations.A graph is used to stor
 Finally, the metro route between the two stations and the total fare(minimum distance * fare{predetermined}) is displayed.*/
 
 #include <bits/stdc++.h>
-#include <conio.h>
+#include <math.h>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <stack>
 #include <iostream>
 using namespace std;
+
 class Dijkstra
 {
     public:
@@ -35,17 +41,14 @@ class Dijkstra
                     }
             return dis;
         }
-
 };
 // To add an station and distance
-void addEdge(vector<vector<int>> adj[], int u,
-                                     int v, int wt)
+void addEdge(vector<vector<int>> adj[], int u, int v, int wt)
 {
     vector<int> t1;
     t1.push_back(v);
     t1.push_back(wt);
     adj[u].push_back(t1);
-
 }
 
 // Print adjacency list representation of graph
@@ -81,19 +84,15 @@ void Prepare(vector<vector<int>> adj[])
     addEdge(adj,5,3,40);
 }
 // Driver code
-int main()
+int menu()
 {
-    int V = 9;
-    vector<vector<int>> adj[V];
-    vector<bool> visited(V,false);
-    Prepare(adj);
-    int i;
+    int choice1,choice;
+    Dijkstra d;
     cout<<"------ WELCOME TO METRO MANAGEMENT ------"<<endl;
     cout<<"For MAP Press 1"<<endl;
     cout<<"For Travel INFO between 2 station Press 2"<<endl;
-    cin>>i;
-    Dijkstra d;
-    if(i == 1)
+    cin>>choice;
+    if(choice == 1)
     {
         system("cls");
         for(int i = 0 ; i < 9 ; i++)
@@ -107,8 +106,16 @@ int main()
                         }
                 }
             }
+            cout<<"For main menu enter 1 : ";
+            cout<<"To exit press 2 :";
+            cin>>choice1;
+            if(choice1 == 1)
+            {
+                menu();
+            }
+            else return 0;
     }
-    if(i == 2)
+    if(choice == 2)
     {
         Dijkstra d;
         system("cls");
@@ -126,6 +133,60 @@ int main()
             }
     	}
     	cout<<endl;
+        cout<<"For main menu enter 1 : ";
+        cout<<"To exit press 2 :";
+        cin>>choice1;
+        if(choice1 == 1)
+        {
+            menu();
+        }
+        else return 0;
     }
+}
+int main()
+{
+    int V = 9;
+    vector<vector<int>> adj[V];
+    vector<bool> visited(V,false);
+    Prepare(adj);
+    /*cout<<"------ WELCOME TO METRO MANAGEMENT ------"<<endl;
+    cout<<"For MAP Press 1"<<endl;
+    cout<<"For Travel INFO between 2 station Press 2"<<endl;*/ 
+    menu();
+    /*Dijkstra d;
+    if(choice == 1)
+    {
+        system("cls");
+        for(int i = 0 ; i < 9 ; i++)
+            {
+                vector<int> res = d.dijkstra(9,adj,i);
+                for(int j = 0 ; j < 9 ; j++)
+                {
+                    if(i != j)
+                        {
+                            cout<<i<<" -> "<<j<<" Distance : "<<res[j]<<endl;
+                        }
+                }
+            }
+    }
+    if(choice == 2)
+    {
+        Dijkstra d;
+        system("cls");
+        int src,dest;
+        cout<<"Enter your station number : ";
+        cin>>src;
+        cout<<"Enter destination station number : ";
+        cin>>dest;
+        vector<int> res = d.dijkstra(9,adj,src);
+    	for(int i=0; i<9; i++)
+    	{
+    	    if(dest == i)
+            {
+                cout<<"Distance B/W "<<src<<" and "<<dest<<" is : "<<res[i];
+            }
+    	}
+    	cout<<endl;
+    }*/
     return 0;
 }
