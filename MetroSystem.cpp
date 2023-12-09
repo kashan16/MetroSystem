@@ -4,30 +4,8 @@
 #include <iostream>
 #include <map>
 #include <climits>
+#include "headers/Dijkstra.h"
 using namespace std;
-
-class Dijkstra {
-public:
-    vector<int> dijkstra(int V, vector<vector<pair<int, int>>> &adj, int S) {
-        vector<int> dis(V, INT_MAX);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        dis[S] = 0;
-        pq.push({0, S});
-        while (!pq.empty()) {
-            auto temp = pq.top();
-            pq.pop();
-            for (auto x : adj[temp.second]) {
-                int dest = x.first;
-                int val = x.second;
-                if (dis[dest] > temp.first + val) {
-                    dis[dest] = temp.first + val;
-                    pq.push({dis[dest], dest});
-                }
-            }
-        }
-        return dis;
-    }
-};
 
 void displayMetroMap() {
     // Print a visual representation of the metro map
@@ -42,8 +20,7 @@ void displayMetroMap() {
 }
 
 void getTravelInformation(vector<vector<pair<int, int>>> &adj, map<string, int> &stationIndices) {
-    Dijkstra d; // Assuming you have a Dijkstra class or equivalent for pathfinding
-
+    Dijkstra d;
     // Ask the user for source and destination stations
     string source, destination;
     cout << "Enter your source station: ";
@@ -94,17 +71,30 @@ void Prepare(vector<vector<pair<int, int>>> &adj, map<string, int> &stationIndic
     addEdge(adj, stationIndices, "Station7", "Station8", 30);
     addEdge(adj, stationIndices, "Station8", "Station9", 22);
 }
-
-int menu(vector<vector<pair<int, int>>> &adj, map<string, int> &stationIndices) {
+int getUserChoice() {
     int choice;
-    do {
+    while (true) {
         cout << "------ WELCOME TO METRO MANAGEMENT ------" << endl;
         cout << "1. View Metro Map" << endl;
         cout << "2. Get Travel Information between Stations" << endl;
         cout << "3. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        if(cin.fail() || choice < 1 || choice > 3) {
+            cout << "Invalid choice. Please enter a valid option." << endl;
 
+            // Clear the error flag and ignore the invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else {
+            break; //Break out of the loop if the input is invalid
+        }
+    }
+    return choice;
+}
+int menu(vector<vector<pair<int, int>>> &adj, map<string, int> &stationIndices , int &choice) {
+    do {
         switch (choice) {
             case 1:
                 // Call a function to display the metro map
@@ -134,12 +124,9 @@ int main() {
 
     vector<vector<pair<int, int>>> adj(9);
     map<string, int> stationIndices;
-
+    int choice = getUserChoice();
     Prepare(adj, stationIndices);
-
-    Dijkstra d;
-
-    menu(adj, stationIndices);
+    menu(adj, stationIndices , choice);
 
     return 0;
 }
