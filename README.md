@@ -28,7 +28,7 @@ git clone https://github.com/kashan16/MetroSystem.git
 Compile the program using your C++ compiler. For example, using g++:
 
 ```bash
-g++ MetroSystem.cpp -o MetroSystem
+g++ g++ -o metro_system MetroSystem.cpp headers/Dijkstra.cpp headers/metro_func.cpp -I headers -std=c++11
 ```
 
 ### How to Run

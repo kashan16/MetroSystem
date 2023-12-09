@@ -21,9 +21,7 @@ void MetroFunctions::displayMetroMap() {
 }
 
 void MetroFunctions::getTravelInformation(std::vector<std::vector<std::pair<int, int>>>& adj, 
-                                          std::map<std::string, int>& stationIndices, Dijkstra& dijkstra) {
-    // Implementation of getTravelInformation using Dijkstra's algorithm
-    // ...
+    std::map<std::string, int>& stationIndices, Dijkstra& dijkstra) {
     string source, destination;
     cout << "Enter your source station: ";
     cin >> source;
@@ -51,7 +49,7 @@ void MetroFunctions::getTravelInformation(std::vector<std::vector<std::pair<int,
 }
 
 void MetroFunctions::addEdge(std::vector<std::vector<std::pair<int, int>>>& adj, std::map<std::string, int>& stationIndices,
-                             const std::string& src, const std::string& dest, int wt) {
+    const std::string& src, const std::string& dest, int wt) {
     // Implementation of addEdge
     if (stationIndices.find(src) == stationIndices.end()) {
         int newIndex = stationIndices.size();
@@ -106,7 +104,8 @@ int MetroFunctions::getUserChoice() {
 }
 
 int MetroFunctions::menu(std::vector<std::vector<std::pair<int, int>>>& adj, std::map<std::string, int>& stationIndices, 
-                         Dijkstra& dijkstra, int& choice) {
+    Dijkstra& dijkstra, int& choice) {
+    int Choice;
     // Implementation of menu
     do {
         switch (choice) {
@@ -126,7 +125,13 @@ int MetroFunctions::menu(std::vector<std::vector<std::pair<int, int>>>& adj, std
         }
 
         cout << "Do you want to return to the main menu? (1 for Yes, 0 for No): ";
-        cin >> choice;
+        cin >> Choice;
+        if(Choice == 1) {
+            menu(adj,stationIndices,dijkstra,choice);
+        }
+        else {
+            cout << "Invalid input !!";
+        }
 
     } while (choice == 1);
 
