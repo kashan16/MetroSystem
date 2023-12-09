@@ -27,11 +27,17 @@ void getTravelInformation(vector<vector<pair<int, int>>> &adj, map<string, int> 
     cin >> source;
     cout << "Enter your destination station: ";
     cin >> destination;
-    int fareRate = 12;
-    // Get numerical indices corresponding to station names
-    int srcIndex = stationIndices[source];
-    int destIndex = stationIndices[destination];
 
+    auto sourceIter = stationIndices.find(source);
+    auto destIter = stationIndices.find(destination);
+
+    if(sourceIter == stationIndices.end() || destIter == stationIndices.end()) {
+        cout << "Error : One or both of the entered station are not valid" << endl;
+        return;
+    }
+    int srcIndex = sourceIter->second;
+    int destIndex = destIter->second;
+    int fareRate = 12;
     // Use Dijkstra's algorithm to get the shortest path and distance
     vector<int> distances = d.dijkstra(9, adj, srcIndex);
     int distance = distances[destIndex];
