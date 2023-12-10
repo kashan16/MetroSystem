@@ -78,9 +78,7 @@ void MetroFunctions::Prepare(std::vector<std::vector<std::pair<int, int>>>& adj,
     addEdge(adj, stationIndices, "Station7", "Station8", 30);
     addEdge(adj, stationIndices, "Station8", "Station9", 22);
 }
-
-int MetroFunctions::getUserChoice() {
-    // Implementation of getUserChoice
+int MetroFunctions::menu(std::vector<std::vector<std::pair<int, int>>>& adj, std::map<std::string, int>& stationIndices, Dijkstra& dijkstra) {
     int choice;
     while (true) {
         cout << "------ WELCOME TO METRO MANAGEMENT ------" << endl;
@@ -100,12 +98,6 @@ int MetroFunctions::getUserChoice() {
             break; // Break out of the loop if the input is valid
         }
     }
-    return choice;
-}
-
-int MetroFunctions::menu(std::vector<std::vector<std::pair<int, int>>>& adj, std::map<std::string, int>& stationIndices, 
-    Dijkstra& dijkstra, int& choice) {
-    int Choice;
     // Implementation of menu
     do {
         switch (choice) {
@@ -123,11 +115,11 @@ int MetroFunctions::menu(std::vector<std::vector<std::pair<int, int>>>& adj, std
             default:
                 cout << "Invalid choice. Please enter a valid option." << endl;
         }
-
-        cout << "Do you want to return to the main menu? (1 for Yes, 0 for No): ";
-        cin >> Choice;
-        if(Choice == 1) {
-            menu(adj,stationIndices,dijkstra,choice);
+        char ch;
+        cout << "Do you want to return to the main menu? (Y for Yes, N for No): ";
+        cin >> ch;
+        if(ch == 'Y' || ch == 'N' || ch == 'y' || ch == 'n') {
+            menu(adj,stationIndices,dijkstra);
         }
         else {
             cout << "Invalid input !!";

@@ -10,12 +10,10 @@ using namespace std;
 int main() {
     std::vector<std::vector<std::pair<int, int>>> adj(9);
     std::map<std::string, int> stationIndices;
-    int choice = MetroFunctions::getUserChoice();
-
     Dijkstra dijkstra;  // Create an instance of the Dijkstra class
 
     MetroFunctions::Prepare(adj, stationIndices);
-    MetroFunctions::menu(adj, stationIndices, dijkstra, choice);
+    MetroFunctions::menu(adj, stationIndices, dijkstra);
 
     return 0;
 }
